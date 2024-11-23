@@ -41,6 +41,9 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -60,7 +63,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="teminal">
+       <widget class="QPushButton" name="save">
         <property name="maximumSize">
          <size>
           <width>30</width>
@@ -104,7 +107,10 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_5">
+         <widget class="QPushButton" name="active_file">
+          <property name="styleSheet">
+           <string notr="true">border-style: none;</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -124,6 +130,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QPlainTextEdit" name="plainTextEdit_2">
               <property name="enabled">
@@ -148,14 +157,23 @@
             </item>
             <item>
              <widget class="QPlainTextEdit" name="plainTextEdit">
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
               <property name="verticalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOff</enum>
+               <enum>Qt::ScrollBarAsNeeded</enum>
               </property>
               <property name="horizontalScrollBarPolicy">
                <enum>Qt::ScrollBarAlwaysOff</enum>
               </property>
               <property name="lineWrapMode">
                <enum>QPlainTextEdit::NoWrap</enum>
+              </property>
+              <property name="backgroundVisible">
+               <bool>false</bool>
+              </property>
+              <property name="centerOnScroll">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
