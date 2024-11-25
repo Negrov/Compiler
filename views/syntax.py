@@ -3,7 +3,7 @@ from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QTextCharFormat, QFont, QColor
 
 colors = {
-    '#0000ff': r"\b(vivod|int|float|str|masik|only|slovar|razmer|depz|vvod)\b",
+    '#0000ff': r"\b(print|int|float|str|list|set|dict|len|range|input)\b",
     '#408ca3': r"\b(\d+)\b",
     '#ffa500': r"\b(if|else|elif|while|for|as|not|is|class|def|in|from|import|True|False|return)\b",
     '#9b36ad': r"\b(self|(__(init|str|repr|dict)__))\b",

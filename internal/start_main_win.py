@@ -16,7 +16,7 @@ class Userview(UserView):
         self.save_to_file()
 
     def save_to_file(self):
-        with open('code/between.txt', 'w', encoding='utf8') as f:
+        with open('code/between.py', 'w', encoding='utf8') as f:
             f.write(self.plainTextEdit.toPlainText())
 
 

@@ -1,7 +1,10 @@
+from msilib import Dialog
+
 from ui.main_w import Ui_MainWindow
+from ui.dialog_w import Ui_Dialog
 
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QMainWindow, QFileDialog
+from PyQt6.QtWidgets import QMainWindow, QFileDialog, QDialog
 
 import os
 
@@ -22,6 +25,8 @@ class UserView(QMainWindow, Ui_MainWindow):
         self.save.setIcon(QIcon('ui/Save.png'))
 
         self.all_page.addTab(self.active_1, "None file")
+        self.actionNew_file.triggered.connect(self.create_file)
+        self.active_file.clicked.connect(self.go)
         self.actionSave_as.triggered.connect(self.save_as)
         self.actionClose_file.triggered.connect(self.close_file)
         self.actionOpen_file.triggered.connect(self.open_file)
@@ -50,6 +55,8 @@ class UserView(QMainWindow, Ui_MainWindow):
                 f.write(self.plainTextEdit.toPlainText())
             with open(f'code/lastFile.txt', 'w', encoding='utf8') as f:
                 f.write(f'{directory}{self.all_page.tabText(0)}.txt')
+                return 1
+        return 0
 
     def last_code(self):
         try:
@@ -66,7 +73,8 @@ class UserView(QMainWindow, Ui_MainWindow):
 
     def open_file(self):
         if not self.is_save and self.plainTextEdit.isEnabled():
-            self.save_file()
+            if not self.save_file():
+                return
         select = QFileDialog.getOpenFileName(self, 'Select file', '', filter='Code(*.txt);;Всефайлы(*)')[0]
         if not '.' in select:
             return
@@ -121,3 +129,22 @@ class UserView(QMainWindow, Ui_MainWindow):
         self.all_page.addTab(self.active_1, "None file")
         with open('code/lastFile.txt', 'w', encoding='utf8') as f:
             f.write('')
+
+    def go(self):
+        self.save_file()
+        current_directory:str = os.path.dirname(os.path.realpath(__file__))
+        current_directory = current_directory[:current_directory.rfind(f"\\")]
+        os.startfile(f'{current_directory}\\code\\between.py')
+
+    def create_file(self):
+        self.close_file()
+        dial = NewFileDialog()
+        dial.exec()
+        self.all_page.addTab(self.active_1, dial.namefile.text())
+        self.plainTextEdit.setEnabled(True)
+
+class NewFileDialog(QDialog, Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
