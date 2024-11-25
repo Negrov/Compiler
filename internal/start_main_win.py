@@ -1,3 +1,4 @@
+from pathlib import Path
 import sys
 
 from PyQt6.QtWidgets import QApplication
@@ -15,13 +16,12 @@ class Userview(UserView):
         self.save_to_file()
 
     def save_to_file(self):
-        with open('code/between.py', 'w', encoding='utf8') as f:
+        with open(Path('code/between.py'), 'w', encoding='utf8') as f:
             f.write(self.plainTextEdit.toPlainText())
 
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
-
 
 def start_main_win():
     app = QApplication(sys.argv)

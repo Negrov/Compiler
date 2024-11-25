@@ -1,3 +1,4 @@
+from pathlib import Path
 from ui.main_w import Ui_MainWindow
 from ui.dialog_w import Ui_Dialog
 
@@ -16,11 +17,11 @@ class UserView(QMainWindow, Ui_MainWindow):
         self.setup_view()
 
     def setup_view(self):
-        self.derict_but.setIcon(QIcon('ui/Direct.png'))
-        self.active_file.setIcon(QIcon('ui/Active.png'))
-        self.setWindowIcon(QIcon('ui/MainIcon.png'))
+        self.derict_but.setIcon(QIcon('ui\\Direct.png'))
+        self.active_file.setIcon(QIcon('ui\\Active.png'))
+        self.setWindowIcon(QIcon('ui\\MainIcon.png'))
         self.setWindowTitle('My Compiler')
-        self.save.setIcon(QIcon('ui/Save.png'))
+        self.save.setIcon(QIcon('ui\\Save.png'))
 
         self.all_page.addTab(self.active_1, "None file")
         self.actionNew_file.triggered.connect(self.create_file)
@@ -37,10 +38,10 @@ class UserView(QMainWindow, Ui_MainWindow):
         self.last_code()
 
     def save_file(self):
-        with open('code/lastFile.txt', 'r', encoding='utf8') as f:
+        with open(Path('code/lastFile.txt'), 'r', encoding='utf8') as f:
             last_path = f.read()
         if self.actual_path == last_path:
-            directory = last_path[:last_path.rfind('/') + 1]
+            directory = last_path[:last_path.rfind("/") + 1]
         else:
             directory = QFileDialog.getExistingDirectory(
                 self,
@@ -49,20 +50,20 @@ class UserView(QMainWindow, Ui_MainWindow):
 
             )
         if directory:
-            with open(f'{directory}{self.all_page.tabText(0)}.py', 'w', encoding='utf8') as f:
+            with open(Path(f'{directory}{self.all_page.tabText(0)}.py'), 'w', encoding='utf8') as f:
                 f.write(self.plainTextEdit.toPlainText())
-            with open(f'code/lastFile.txt', 'w', encoding='utf8') as f:
-                f.write(f'{directory}{self.all_page.tabText(0)}.py')
+            with open(Path('code/lastFile.txt'), 'w', encoding='utf8') as f:
+                f.write(f"{directory}{self.all_page.tabText(0)}.py")
                 return 1
         return 0
 
     def last_code(self):
         try:
-            with open('code/lastFile.txt', 'r', encoding='utf8') as f:
+            with open(Path('code/lastFile.txt'), 'r', encoding='utf8') as f:
                 path = f.read()
             with open(path, 'r', encoding='utf8') as f:
                 code = f.read()
-            self.all_page.addTab(self.active_1, f'{path[path.rfind("/") + 1: path.rfind(".")]}')
+            self.all_page.addTab(self.active_1, f'{path[path.rfind("/") + 1: path.rfind(".")]}'.replace('/', '\\'))
             self.plainTextEdit.setPlainText(code)
             self.actual_path = path
             self.plainTextEdit.setEnabled(True)
@@ -76,11 +77,11 @@ class UserView(QMainWindow, Ui_MainWindow):
         select = QFileDialog.getOpenFileName(self, 'Select file', '', filter='*.py(Python);;Всефайлы(*)')[0]
         if not '.' in select:
             return
-        with open(select, 'r', encoding='utf8') as f:
+        with open(Path(select), 'r', encoding='utf8') as f:
             code = f.read()
-        self.all_page.addTab(self.active_1, f'{select[select.rfind("/") + 1:select.find(".")]}')
+        self.all_page.addTab(self.active_1, f'{select[select.rfind(Path("/")) + 1:select.find(".")]}')
         self.plainTextEdit.setPlainText(code)
-        with open('code/lastFile.txt', 'w', encoding='utf8') as f:
+        with open(Path('code/lastFile.txt'), 'w', encoding='utf8') as f:
             f.write(select)
         self.is_save = False
         self.plainTextEdit.setEnabled(True)
@@ -115,10 +116,10 @@ class UserView(QMainWindow, Ui_MainWindow):
     def save_as(self):
         if self.plainTextEdit.isEnabled():
             fname, _ = QFileDialog.getSaveFileName(self, 'Save as', f'/{self.all_page.tabText(0)}.py', os.getenv('HOME'))
-            with open(fname, 'w', encoding='utf8') as f:
+            with open(Path(fname), 'w', encoding='utf8') as f:
                 f.write(self.plainTextEdit.toPlainText())
             self.close_file()
-            with open(f'code/lastFile.txt', 'w', encoding='utf8') as f:
+            with open(Path(f'code/lastFile.txt'), 'w', encoding='utf8') as f:
                 f.write(fname)
 
     def close_file(self):
@@ -126,14 +127,14 @@ class UserView(QMainWindow, Ui_MainWindow):
         self.plainTextEdit.setEnabled(False)
         self.plainTextEdit.setPlainText('')
         self.all_page.addTab(self.active_1, "None file")
-        with open('code/lastFile.txt', 'w', encoding='utf8') as f:
+        with open(Path('code/lastFile.txt'), 'w', encoding='utf8') as f:
             f.write('')
 
     def go(self):
         self.save_file()
         current_directory:str = os.path.dirname(os.path.realpath(__file__))
         current_directory = current_directory[:current_directory.rfind(f"\\")]
-        os.startfile(f'{current_directory}\\code\\between.py')
+        os.startfile(Path(f'{current_directory}\\code\\between.py'))
 
     def create_file(self):
         self.close_file()
