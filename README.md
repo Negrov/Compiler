@@ -9,3 +9,5 @@
    QSyntaxHighlighter — с помощью его раелизованна подсветка синтаксиса
 5. PyQt6 и основные модули Python
 6. В разделе Photo
+7. Презентация:
+      "https://docs.google.com/presentation/d/1E9uMimvpIt8wR0p2ivxuSIaLf74GYGyRyxNosXQ0ZUo/edit#slide=id.g2d5baca38b7_0_103"
