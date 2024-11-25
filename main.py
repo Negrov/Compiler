@@ -1,12 +1,4 @@
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication
-from views.userview import UserView
-from views.syntax import MyHighlighter
-import sys
+from internal.start_main_win import start_main_win
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = UserView()
-    ex.show()
-    highlighter = MyHighlighter(ex.plainTextEdit.document())
-    sys.exit(app.exec())
+    start_main_win()
