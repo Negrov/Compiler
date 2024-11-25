@@ -1,5 +1,4 @@
 import sys
-from configparser import Error
 
 from PyQt6.QtWidgets import QApplication
 

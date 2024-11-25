@@ -1,5 +1,3 @@
-from msilib import Dialog
-
 from ui.main_w import Ui_MainWindow
 from ui.dialog_w import Ui_Dialog
 
@@ -51,10 +49,10 @@ class UserView(QMainWindow, Ui_MainWindow):
 
             )
         if directory:
-            with open(f'{directory}{self.all_page.tabText(0)}.txt', 'w', encoding='utf8') as f:
+            with open(f'{directory}{self.all_page.tabText(0)}.py', 'w', encoding='utf8') as f:
                 f.write(self.plainTextEdit.toPlainText())
             with open(f'code/lastFile.txt', 'w', encoding='utf8') as f:
-                f.write(f'{directory}{self.all_page.tabText(0)}.txt')
+                f.write(f'{directory}{self.all_page.tabText(0)}.py')
                 return 1
         return 0
 
@@ -75,7 +73,7 @@ class UserView(QMainWindow, Ui_MainWindow):
         if not self.is_save and self.plainTextEdit.isEnabled():
             if not self.save_file():
                 return
-        select = QFileDialog.getOpenFileName(self, 'Select file', '', filter='Code(*.txt);;Всефайлы(*)')[0]
+        select = QFileDialog.getOpenFileName(self, 'Select file', '', filter='*.py(Python);;Всефайлы(*)')[0]
         if not '.' in select:
             return
         with open(select, 'r', encoding='utf8') as f:
@@ -111,11 +109,12 @@ class UserView(QMainWindow, Ui_MainWindow):
         self.number_left()
 
     def close(self):
-        exit()
+        # exit()
+        a = 1/ 0
 
     def save_as(self):
         if self.plainTextEdit.isEnabled():
-            fname, _ = QFileDialog.getSaveFileName(self, 'Save as', f'/{self.all_page.tabText(0)}.txt', os.getenv('HOME'))
+            fname, _ = QFileDialog.getSaveFileName(self, 'Save as', f'/{self.all_page.tabText(0)}.py', os.getenv('HOME'))
             with open(fname, 'w', encoding='utf8') as f:
                 f.write(self.plainTextEdit.toPlainText())
             self.close_file()
