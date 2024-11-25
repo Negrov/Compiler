@@ -59,7 +59,7 @@ class UserView(QMainWindow, Ui_MainWindow):
 
     def last_code(self):
         try:
-            with open(Path('code/lastFile.txt'), 'r', encoding='utf8') as f:
+            with open(Path('code\\lastFile.txt'), 'r', encoding='utf8') as f:
                 path = f.read()
             with open(path, 'r', encoding='utf8') as f:
                 code = f.read()
@@ -67,8 +67,8 @@ class UserView(QMainWindow, Ui_MainWindow):
             self.plainTextEdit.setPlainText(code)
             self.actual_path = path
             self.plainTextEdit.setEnabled(True)
-        except FileNotFoundError as e:
-            print(e)
+        except FileNotFoundError:
+            """pass"""
 
     def open_file(self):
         if not self.is_save and self.plainTextEdit.isEnabled():
