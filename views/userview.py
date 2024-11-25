@@ -37,6 +37,8 @@ class UserView(QMainWindow, Ui_MainWindow):
         self.last_code()
 
     def save_file(self):
+        if not self.plainTextEdit.toPlainText():
+            return
         with open('code/lastFile.txt', 'r', encoding='utf8') as f:
             last_path = f.read()
         if self.actual_path == last_path:
@@ -130,6 +132,8 @@ class UserView(QMainWindow, Ui_MainWindow):
             f.write('')
 
     def go(self):
+        if not self.plainTextEdit.toPlainText():
+            return
         self.save_file()
         current_directory:str = os.path.dirname(os.path.realpath(__file__))
         current_directory = current_directory[:current_directory.rfind(f"\\")]
